@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Reader Example</title>
+</head>
+<body>
+    <input type="file" id="csvInput">
+    <ul id="csvList"></ul>
+    
+    <script>
+        const csvInput = document.getElementById('csvInput');
+        const csvList = document.getElementById('csvList');
+        
+        csvInput.addEventListener('change', (event) => {
+            const selectedFile = event.target.files[0];
+            
+            if (selectedFile && selectedFile.type === 'text/csv') {
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    const csvContent = e.target.result;
+                    const lines = csvContent.split('\n');
+                    
+                    csvList.innerHTML = ''; // Clear previous content
+                    
+                    lines.forEach((line) => {
+                        const fields = line.split(',');
+                        const listItem = document.createElement('li');
+                        listItem.textContent = fields.join(' | ');
+                        csvList.appendChild(listItem);
+                    });
+                };
+                
+                reader.readAsText(selectedFile);
+            } else {
+                csvList.innerHTML = '<li>Please select a CSV file.</li>';
+            }
+        });
+    </script>
+</body>
+</html>

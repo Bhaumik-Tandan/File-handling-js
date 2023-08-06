@@ -1,0 +1,29 @@
+<form id="myForm">
+  <input type="text" name="username">
+  <input type="file" name="avatar">
+  <button type="submit">Submit</button>
+</form>
+
+// JavaScript code to handle form submission
+const form = document.getElementById('myForm');
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch('https://example.com/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      console.log('Form data submitted successfully.');
+    } else {
+      console.error('Failed to submit form data.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});

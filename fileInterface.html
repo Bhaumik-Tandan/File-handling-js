@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/File -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Interface Example</title>
+</head>
+<body>
+    <input type="file" id="fileInput" accept=".txt,.pdf,.jpg,.png,.json">
+    <div id="fileInfo"></div>
+
+    <script>
+        // Function to handle file selection
+        function handleFileSelect() {
+            const fileInput = document.getElementById('fileInput');
+            const selectedFile = fileInput.files[0];
+
+            if (selectedFile) {
+                const fileName = selectedFile.name;
+                const fileSize = selectedFile.size;
+                const fileType = selectedFile.type;
+                const lastModifiedDate = selectedFile.lastModifiedDate;
+                console.log(selectedFile);
+
+                const fileInfoDiv = document.getElementById('fileInfo');
+                fileInfoDiv.innerHTML = `
+                    <p>File Name: ${fileName}</p>
+                    <p>File Size: ${fileSize} bytes</p>
+                    <p>File Type: ${fileType}</p>
+                    <p>Last Modified Date: ${lastModifiedDate}</p>
+                `;
+            }
+        }
+
+        // Attach event listener to the file input
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', handleFileSelect);
+    </script>
+</body>
+</html>
